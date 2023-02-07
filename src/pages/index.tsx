@@ -4,6 +4,7 @@ import { JoinMeeting } from "./JoinMeeting";
 import { useMount } from "../hooks/useMount";
 import { soundContextState } from "../libs/soundContext";
 import { RecoilRoot, useRecoilValue } from "recoil";
+import { signIn, useSession } from "next-auth/react";
 
 export type ZoomMtgParams = {
   userName: string;
@@ -13,6 +14,7 @@ export type ZoomMtgParams = {
 };
 
 const Home = () => {
+  const { status } = useSession();
   const [joinParams, setJoinParams] = useState<ZoomMtgParams | undefined>();
   const soundContext = useRecoilValue(soundContextState);
 
@@ -20,6 +22,15 @@ const Home = () => {
     navigator.mediaDevices.getUserMedia =
       soundContext.fakeUserMedia.bind(soundContext);
   });
+
+  if (status === "loading") {
+    return <p>Hang on there...</p>;
+  }
+
+  if (status !== "authenticated") {
+    signIn();
+    return null;
+  }
 
   if (joinParams) {
     return <JoinMeeting {...joinParams} />;

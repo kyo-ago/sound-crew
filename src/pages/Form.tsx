@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
+import { signOut } from "next-auth/react";
 
 export const Form = ({
   onJoin,
@@ -53,6 +54,9 @@ export const Form = ({
             onChange={({ target }) => setPasswords(target.value)}
           />
         </div>
+        <button className={styles.button} onClick={() => signOut()}>
+          SignOut
+        </button>
         <button
           className={styles.button}
           onClick={() =>

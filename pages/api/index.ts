@@ -1,7 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./auth/[...nextauth]";
 const KJUR = require("jsrsasign");
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session?.user?.email?.match(/@graffer\.jp$/)) {
+    return res.send({
+      error:
+        "You must be signed in to view the protected content on this page.",
+    });
+  }
+
   const iat = Math.round(new Date().getTime() / 1000) - 30;
   const exp = iat + 60 * 60 * 2;
 

@@ -10,6 +10,7 @@ export const Meeting = (zoomJoinParams: ZoomJoinParams) => {
     <>
       {soundContext.mapSounds((key, name) => (
         <button
+          key={key}
           onClick={() => {
             soundContext.playSound(key);
           }}

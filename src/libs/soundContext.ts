@@ -77,7 +77,7 @@ export class SoundContext {
     });
   }
   playMessageSound(key: string) {
-    const k = key.replace(/^(.)\1{2,}$/, '$1$1$1')
+    const k = key.replace(/^(.)\1{2,}$/u, "$1$1$1");
     messageToKey[k] && this.playSound(messageToKey[k]);
   }
   playScreenShareSound() {
