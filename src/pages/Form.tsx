@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
 import { signOut } from "next-auth/react";
+import {ZoomMtgParams} from "./index";
 
 export const Form = ({
   onJoin,
 }: {
-  onJoin: (props: {
-    userName: string;
-    userRole: string;
-    meetingNumber: string;
-    passwords: string;
-  }) => void;
+  onJoin: (props: ZoomMtgParams) => void;
 }) => {
   const [userName, setUserName] = useState("sound crew");
   const [userRole, setUserRole] = useState("0");
-  const [meetingNumber, setMeetingNumber] = useState("7445166963");
+  const [meetingNumber, setMeetingNumber] = useState("");
   const [passwords, setPasswords] = useState("");
 
   const buttonEnabled = !!userName && !!userRole && !!meetingNumber;
