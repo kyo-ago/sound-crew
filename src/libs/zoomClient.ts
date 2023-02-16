@@ -5,7 +5,7 @@ export type ZoomJoinParams = {
   signature: string;
   meetingNumber: string;
   userName: string;
-  passwords: string;
+  password: string;
 };
 
 export class ZoomClient {

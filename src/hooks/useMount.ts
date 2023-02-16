@@ -8,5 +8,5 @@ export const useMount = (fn: () => void) => {
     }
     ref.current = true;
     fn();
-  }, []);
+  });
 };

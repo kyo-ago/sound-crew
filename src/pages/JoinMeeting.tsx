@@ -6,7 +6,7 @@ export const JoinMeeting = ({
   userName,
   userRole,
   meetingNumber,
-  passwords,
+  password,
 }: ZoomMtgParams) => {
   const { data } = useInitializeZoom({
     meetingNumber,
@@ -16,9 +16,11 @@ export const JoinMeeting = ({
   if (data) {
     return (
       <Meeting
-        userName={userName}
-        passwords={passwords}
-        meetingNumber={meetingNumber}
+        {...{
+          userName,
+          password,
+          meetingNumber,
+        }}
         signature={data.signature}
       />
     );

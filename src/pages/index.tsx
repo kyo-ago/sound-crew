@@ -10,7 +10,7 @@ export type ZoomMtgParams = {
   userName: string;
   userRole: string;
   meetingNumber: string;
-  passwords: string;
+  password: string;
 };
 
 const Home = () => {

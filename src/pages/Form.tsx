@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
 import { signOut } from "next-auth/react";
-import {ZoomMtgParams} from "./index";
+import { ZoomMtgParams } from "./index";
 
 export const Form = ({
   onJoin,
@@ -11,7 +11,7 @@ export const Form = ({
   const [userName, setUserName] = useState("sound crew");
   const [userRole, setUserRole] = useState("0");
   const [meetingNumber, setMeetingNumber] = useState("");
-  const [passwords, setPasswords] = useState("");
+  const [password, setPassword] = useState("");
 
   const buttonEnabled = !!userName && !!userRole && !!meetingNumber;
 
@@ -44,10 +44,10 @@ export const Form = ({
           />
         </div>
         <div>
-          Meeting Passwords{" "}
+          Meeting Password{" "}
           <input
-            value={passwords}
-            onChange={({ target }) => setPasswords(target.value)}
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
           />
         </div>
         <button className={styles.button} onClick={() => signOut()}>
@@ -60,7 +60,7 @@ export const Form = ({
               userName,
               userRole,
               meetingNumber,
-              passwords,
+              password,
             })
           }
           disabled={!buttonEnabled}
