@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" data-info="draw.ninja" data-name="draw" width="100" height="100" style="position:fixed;top:0;left:0">
+    <path fill="none" d="M0 0h100v100H0z"/>
+    <g stroke="#000">
+        <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd" data-name="curve" data-title="curve" data-sw="2" data-grad="0" data-group="0" data-edit="1" filter="none" d="M0 50C0 22.5 22.5 0 50 0s50 22.5 50 50-22.5 50-50 50S0 77.5 0 50Z" data-centerx="50" data-centery="50"/>
+        <g data-name="group" data-title="text" data-edit="1" data-centerx="49.827" data-centery="45.074">
+            <text font-family="Verdana" font-size="18" transform="matrix(5.366 1.438 -1.184 4.419 -2724.251 -2123.636)" stroke="none" stroke-width="2" fill="#FFF" data-name="text" data-title="text" data-sw="2" data-group="group7" data-trans="translate(-550,-270) matrix(5.366,1.438,-1.184,4.419,-2174.251,-1853.636)" data-edit="1" filter="none" x="579" y="308" data-centerx="48.12" data-centery="77.153">♪</text>
+        </g>
+    </g>
+</svg>

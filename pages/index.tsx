@@ -13,18 +13,14 @@ export default function IndexPage() {
     return <p>Hang on there...</p>;
   }
 
-  if (status === "authenticated") {
-    return (
-      <>
-        <IndexApp />
-      </>
-    );
+  if (status !== "authenticated") {
+    signIn();
+    return null;
   }
 
   return (
     <>
-      <p>Not signed in.</p>
-      <button onClick={() => signIn()}>Sign in</button>
+      <IndexApp />
     </>
   );
 }

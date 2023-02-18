@@ -4,7 +4,9 @@ import React from "react";
 export default function Document() {
   return (
     <Html lang="en">
-      <Head></Head>
+      <Head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      </Head>
       <body>
         <div id="meetingSDKElement"></div>
         <Main />

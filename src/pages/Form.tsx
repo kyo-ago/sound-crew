@@ -10,8 +10,17 @@ export const Form = ({
 }) => {
   const [userName, setUserName] = useState("sound crew");
   const [userRole, setUserRole] = useState("0");
-  const [meetingNumber, setMeetingNumber] = useState("");
+  const [meetingNumber, setMeetingNumberState] = useState("");
   const [password, setPassword] = useState("");
+  const setMeetingNumber = (value: string) => {
+    try {
+      const url = new URL(value);
+      setMeetingNumberState(url.pathname.replace(/\D/g, ""));
+      setPassword(url.searchParams.get("pwd") || password);
+    } catch {
+      setMeetingNumberState(value.replace(/\D/g, ""));
+    }
+  };
 
   const buttonEnabled = !!userName && !!userRole && !!meetingNumber;
 
@@ -27,7 +36,7 @@ export const Form = ({
           />
         </div>
         <div>
-          Role
+          Role{" "}
           <select
             value={userRole}
             onChange={({ target }) => setUserRole(target.value)}
@@ -37,7 +46,7 @@ export const Form = ({
           </select>
         </div>
         <div>
-          Meeting Number{" "}
+          Meeting Number (or Meeting URL)
           <input
             value={meetingNumber}
             onChange={({ target }) => setMeetingNumber(target.value)}
@@ -52,7 +61,7 @@ export const Form = ({
         </div>
         <button className={styles.button} onClick={() => signOut()}>
           SignOut
-        </button>
+        </button>{" "}
         <button
           className={styles.button}
           onClick={() =>

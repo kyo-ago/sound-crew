@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth/[...nextauth]";
+import { matchEmail } from "../../src/libs/matchEmail";
+
 const KJUR = require("jsrsasign");
 
 export default async function handler(
@@ -8,12 +10,16 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const session = await getServerSession(req, res, authOptions);
-
-  if (!session?.user?.email?.match(/@graffer\.jp$/)) {
-    return res.send({
-      error:
-        "You must be signed in to view the protected content on this page.",
-    });
+  if (!process.env.ALLOW_EMAIL_DOMAIN) {
+    throw new Error("ALLOW_EMAIL_DOMAIN is not set");
+  }
+  const [, error] = matchEmail(
+    session?.user?.email,
+    process.env.ALLOW_EMAIL_DOMAIN
+  );
+  if (error) {
+    res.status(401).json({ error });
+    return;
   }
 
   const iat = Math.round(new Date().getTime() / 1000) - 30;
