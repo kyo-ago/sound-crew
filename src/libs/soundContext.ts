@@ -16,6 +16,8 @@ const messageToKey = {
   "👏👏👏": "people-performance-cheer1",
 } as { [key: string]: string };
 
+let soundPlaying = false;
+
 export class SoundContext {
   private constructor(
     private readonly audioContext: AudioContext,
@@ -68,12 +70,19 @@ export class SoundContext {
     return soundSets.map(({ key, name }) => callback(key, name));
   }
   playSound(key: string) {
+    if (soundPlaying) {
+      return;
+    }
+    soundPlaying = true;
     const audioBufferSourceNode = this.audioContext.createBufferSource();
     audioBufferSourceNode.buffer = this.audioBuffers[key];
     audioBufferSourceNode.connect(this.mediaStreamAudioDestinationNode);
     audioBufferSourceNode.start();
     audioBufferSourceNode.addEventListener("ended", () => {
       audioBufferSourceNode.disconnect();
+      setTimeout(() => {
+        soundPlaying = false;
+      }, 2000);
     });
   }
   playMessageSound(key: string) {
