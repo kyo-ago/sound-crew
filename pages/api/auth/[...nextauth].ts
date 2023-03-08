@@ -4,7 +4,7 @@ import ZoomProvider from "next-auth/providers/zoom";
 export const authOptions: NextAuthOptions = {
     providers: [
         ZoomProvider({
-            clientId: process.env.NEXT_PUBLIC_ZOOM_SDK_KEY!,
+            clientId: process.env.NEXT_PUBLIC_ZOOM_CLIENT_ID!,
             clientSecret: process.env.ZOOM_CLIENT_SECRET!
         }),
     ],

@@ -29,7 +29,7 @@ export class ZoomClient {
             ...zoomJoinParams,
             userEmail: user.email,
             zak: zoomJoinParams.token,
-            sdkKey: process.env.NEXT_PUBLIC_ZOOM_SDK_KEY,
+            sdkKey: process.env.NEXT_PUBLIC_ZOOM_CLIENT_ID,
           })
           .then(resolve, reject);
       }, 500);

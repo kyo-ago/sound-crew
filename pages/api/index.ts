@@ -29,12 +29,12 @@ export default async function handler(
   const oHeader = { alg: "HS256", typ: "JWT" };
 
   const oPayload = {
-    sdkKey: process.env.NEXT_PUBLIC_ZOOM_SDK_KEY,
+    sdkKey: process.env.NEXT_PUBLIC_ZOOM_CLIENT_ID,
     mn: req.body.meetingNumber,
     role: req.body.role,
     iat: iat,
     exp: exp,
-    appKey: process.env.NEXT_PUBLIC_ZOOM_SDK_KEY,
+    appKey: process.env.NEXT_PUBLIC_ZOOM_CLIENT_ID,
     tokenExp: iat + 60 * 60 * 2,
   };
 
