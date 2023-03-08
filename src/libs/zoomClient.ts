@@ -2,6 +2,7 @@ import ZoomMtgEmbedded from "@zoomus/websdk/embedded";
 import { atom } from "recoil";
 
 export type ZoomJoinParams = {
+  token: string;
   signature: string;
   meetingNumber: string;
   userName: string;
@@ -18,10 +19,7 @@ export class ZoomClient {
       language: "en-US",
     });
   }
-  join(zoomJoinParams: ZoomJoinParams) {
-    const userEmail = "";
-    const registrantToken = "";
-
+  join(zoomJoinParams: ZoomJoinParams, user: { email: string }) {
     return new Promise((resolve, reject) => {
       // setTimeoutなしでclient.joinを呼ぶとReact.setStateが実行されておらず以下のエラーが出る
       // TypeError: s is not a function
@@ -29,12 +27,12 @@ export class ZoomClient {
         this.client
           .join({
             ...zoomJoinParams,
-            userEmail: userEmail,
-            tk: registrantToken,
+            userEmail: user.email,
+            zak: zoomJoinParams.token,
             sdkKey: process.env.NEXT_PUBLIC_ZOOM_SDK_KEY,
           })
           .then(resolve, reject);
-      });
+      }, 500);
     });
   }
   onChangeShareScreenStatus(

@@ -20,8 +20,10 @@ export const useInitializeZoom = ({
   userRole: string;
 }) => {
   const { trigger, data } = useSWRMutation<{
+    token: string;
     signature: string;
   }>(signatureEndpoint, sendRequest);
+
   const zoomClient = useRecoilValue(zoomClientState);
 
   useMount(() => {

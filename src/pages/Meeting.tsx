@@ -18,6 +18,15 @@ export const Meeting = (zoomJoinParams: ZoomJoinParams) => {
           {name}
         </button>
       ))}
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value="100"
+        onClick={(e) => {
+          soundContext.setVolume(e.currentTarget.valueAsNumber / 100);
+        }}
+      />
     </>
   );
 };

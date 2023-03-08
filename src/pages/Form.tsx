@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import styles from "./index.module.css";
 import { signOut } from "next-auth/react";
 import { ZoomMtgParams } from "./index";
@@ -8,21 +8,34 @@ export const Form = ({
 }: {
   onJoin: (props: ZoomMtgParams) => void;
 }) => {
-  const [userName, setUserName] = useState("sound crew");
-  const [userRole, setUserRole] = useState("0");
-  const [meetingNumber, setMeetingNumberState] = useState("");
-  const [password, setPassword] = useState("");
-  const setMeetingNumber = (value: string) => {
-    try {
-      const url = new URL(value);
-      setMeetingNumberState(url.pathname.replace(/\D/g, ""));
-      setPassword(url.searchParams.get("pwd") || password);
-    } catch {
-      setMeetingNumberState(value.replace(/\D/g, ""));
+  const [zoomMtgParams, updateZoomMtgParams] = useReducer(
+    (prev: Partial<ZoomMtgParams>, next: Partial<ZoomMtgParams>) => {
+      const newParams = { ...prev, ...next };
+      if (newParams.meetingNumber) {
+        try {
+          const url = new URL(newParams.meetingNumber);
+          newParams.meetingNumber = url.pathname.replace(/\D/g, "");
+          newParams.password = url.searchParams.get("pwd") || "";
+        } catch {}
+      }
+      localStorage.setItem("userName", newParams.userName || "");
+      localStorage.setItem("userRole", newParams.userRole || "");
+      localStorage.setItem("meetingNumber", newParams.meetingNumber || "");
+      localStorage.setItem("password", newParams.password || "");
+      return newParams;
+    },
+    {
+      userName: localStorage.getItem("userName") || "sound crew",
+      userRole: localStorage.getItem("userRole") || "0",
+      meetingNumber: localStorage.getItem("meetingNumber") || "",
+      password: localStorage.getItem("password") || "",
     }
-  };
+  );
 
-  const buttonEnabled = !!userName && !!userRole && !!meetingNumber;
+  const buttonEnabled =
+    !!zoomMtgParams.userName &&
+    !!zoomMtgParams.userRole &&
+    !!zoomMtgParams.meetingNumber;
 
   return (
     <div className="App">
@@ -31,15 +44,19 @@ export const Form = ({
         <div>
           Name{" "}
           <input
-            value={userName}
-            onChange={({ target }) => setUserName(target.value)}
+            value={zoomMtgParams.userName}
+            onChange={({ target }) =>
+              updateZoomMtgParams({ userName: target.value })
+            }
           />
         </div>
         <div>
           Role{" "}
           <select
-            value={userRole}
-            onChange={({ target }) => setUserRole(target.value)}
+            value={zoomMtgParams.userRole}
+            onChange={({ target }) =>
+              updateZoomMtgParams({ userRole: target.value })
+            }
           >
             <option value="0">Attendee</option>
             <option value="1">Host</option>
@@ -48,15 +65,19 @@ export const Form = ({
         <div>
           Meeting Number (or Meeting URL)
           <input
-            value={meetingNumber}
-            onChange={({ target }) => setMeetingNumber(target.value)}
+            value={zoomMtgParams.meetingNumber}
+            onChange={({ target }) =>
+              updateZoomMtgParams({ meetingNumber: target.value })
+            }
           />
         </div>
         <div>
           Meeting Password{" "}
           <input
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
+            value={zoomMtgParams.password}
+            onChange={({ target }) =>
+              updateZoomMtgParams({ password: target.value })
+            }
           />
         </div>
         <button className={styles.button} onClick={() => signOut()}>
@@ -64,14 +85,7 @@ export const Form = ({
         </button>{" "}
         <button
           className={styles.button}
-          onClick={() =>
-            onJoin({
-              userName,
-              userRole,
-              meetingNumber,
-              password,
-            })
-          }
+          onClick={() => onJoin(zoomMtgParams as ZoomMtgParams)}
           disabled={!buttonEnabled}
         >
           Join Meeting

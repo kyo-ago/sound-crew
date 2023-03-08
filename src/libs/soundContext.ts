@@ -23,6 +23,7 @@ export class SoundContext {
     private readonly audioContext: AudioContext,
     private readonly mediaStreamAudioDestinationNode: MediaStreamAudioDestinationNode,
     private readonly mediaStream: MediaStream,
+    private readonly gainNode: GainNode,
     private readonly audioBuffers: { [key: string]: AudioBuffer }
   ) {}
   static create() {
@@ -30,6 +31,8 @@ export class SoundContext {
     const mediaStreamAudioDestinationNode =
       audioContext.createMediaStreamDestination();
     const mediaStream = mediaStreamAudioDestinationNode.stream;
+    const gainNode = audioContext.createGain();
+    gainNode.connect(mediaStreamAudioDestinationNode);
 
     return this.loadAllAudioBuffer(audioContext).then(
       (audioBuffers) =>
@@ -37,6 +40,7 @@ export class SoundContext {
           audioContext,
           mediaStreamAudioDestinationNode,
           mediaStream,
+          gainNode,
           audioBuffers
         )
     );
@@ -69,6 +73,9 @@ export class SoundContext {
   mapSounds<T>(callback: (key: string, name: string) => T) {
     return soundSets.map(({ key, name }) => callback(key, name));
   }
+  setVolume(volume: number) {
+    this.gainNode.gain.value = volume;
+  }
   playSound(key: string) {
     if (soundPlaying) {
       return;
@@ -76,7 +83,7 @@ export class SoundContext {
     soundPlaying = true;
     const audioBufferSourceNode = this.audioContext.createBufferSource();
     audioBufferSourceNode.buffer = this.audioBuffers[key];
-    audioBufferSourceNode.connect(this.mediaStreamAudioDestinationNode);
+    audioBufferSourceNode.connect(this.gainNode);
     audioBufferSourceNode.start();
     audioBufferSourceNode.addEventListener("ended", () => {
       audioBufferSourceNode.disconnect();
@@ -86,6 +93,11 @@ export class SoundContext {
     });
   }
   playMessageSound(key: string) {
+    const [, volume] = key.match(/音量.*?(\d+)/) || [];
+    if (volume) {
+      this.setVolume(Number(volume) / 100);
+      return;
+    }
     const k = key.replace(/^(.)\1{2,}$/u, "$1$1$1");
     messageToKey[k] && this.playSound(messageToKey[k]);
   }
