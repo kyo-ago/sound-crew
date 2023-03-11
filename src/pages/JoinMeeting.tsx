@@ -21,7 +21,6 @@ export const JoinMeeting = ({
           password,
           meetingNumber,
         }}
-        token={data.token}
         signature={data.signature}
       />
     );

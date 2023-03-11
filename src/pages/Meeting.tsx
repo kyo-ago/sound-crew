@@ -1,8 +1,8 @@
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import { useJoinZoom } from "../hooks/useJoinZoom";
 import { ZoomJoinParams } from "../libs/zoomClient";
-import { useRecoilValue } from "recoil";
 import { soundContextState } from "../libs/soundContext";
-import { useState } from "react";
 
 export const Meeting = (zoomJoinParams: ZoomJoinParams) => {
   const soundContext = useRecoilValue(soundContextState);

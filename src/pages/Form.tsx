@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
-import styles from "./index.module.css";
 import { signOut } from "next-auth/react";
+import styles from "./index.module.css";
 import { ZoomMtgParams } from "./index";
 
 export const Form = ({

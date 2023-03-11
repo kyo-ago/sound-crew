@@ -1,7 +1,7 @@
 import useSWRMutation from "swr/mutation";
+import { useRecoilValue } from "recoil";
 import { useMount } from "./useMount";
 import { zoomClientState } from "../libs/zoomClient";
-import { useRecoilValue } from "recoil";
 
 const signatureEndpoint = "/api";
 async function sendRequest<Response>(url: string, { arg }: any) {
@@ -20,7 +20,6 @@ export const useInitializeZoom = ({
   userRole: string;
 }) => {
   const { trigger, data } = useSWRMutation<{
-    token: string;
     signature: string;
   }>(signatureEndpoint, sendRequest);
 
