@@ -21,6 +21,9 @@
     ]
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.5.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@next/font": "13.1.6",
     "@types/node": "18.14.0",
     "@types/react": "18.0.28",
@@ -28,6 +31,7 @@
     "@zoomus/websdk": "2.10.1",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
+    "framer-motion": "^10.2.4",
     "jsrsasign": "10.6.1",
     "next": "13.1.6",
     "next-auth": "4.19.2",

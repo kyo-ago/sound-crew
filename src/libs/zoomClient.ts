@@ -41,6 +41,13 @@ export class ZoomClient {
       }, 500);
     });
   }
+  onMeetingEnd(callback: () => void) {
+    this.client.on("connection-change", (payload) => {
+      if (payload.state === "Closed") {
+        callback();
+      }
+    });
+  }
   onChangeShareScreenStatus(
     callback: (data: { userId: number; action: "Start" | "Stop" }) => void
   ) {

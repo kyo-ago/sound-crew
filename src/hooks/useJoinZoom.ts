@@ -21,6 +21,9 @@ export const useJoinZoom = (zoomJoinParams: ZoomJoinParams) => {
           soundContext.playScreenShareSound();
         }
       });
+      zoomClient.onMeetingEnd(() => {
+        window.location.reload();
+      });
     });
     zoomUiObserver((text) => {
       soundContext.playMessageSound(text);

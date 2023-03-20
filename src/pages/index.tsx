@@ -1,10 +1,11 @@
-import React, { Suspense, useState } from "react";
-import { RecoilRoot, useRecoilValue } from "recoil";
-import { signIn, useSession } from "next-auth/react";
-import { Form } from "./Form";
-import { JoinMeeting } from "./JoinMeeting";
-import { useMount } from "../hooks/useMount";
-import { soundContextState } from "../libs/soundContext";
+import React, {Suspense, useState} from "react";
+import {RecoilRoot, useRecoilValue} from "recoil";
+import {signIn, useSession} from "next-auth/react";
+import {Form} from "./Form";
+import {JoinMeeting} from "./JoinMeeting";
+import {useMount} from "../hooks/useMount";
+import {soundContextState} from "../libs/soundContext";
+import {Loading} from "./components/Loading";
 
 export type ZoomMtgParams = {
   userName: string;
@@ -24,7 +25,7 @@ const Home = () => {
   });
 
   if (status === "loading") {
-    return <p>Hang on there...</p>;
+    return <Loading />;
   }
 
   if (status !== "authenticated") {
@@ -42,7 +43,7 @@ const Home = () => {
 export default function Index() {
   return (
     <RecoilRoot>
-      <Suspense fallback="読み込み中">
+      <Suspense fallback={<Loading />}>
         <Home />
       </Suspense>
     </RecoilRoot>

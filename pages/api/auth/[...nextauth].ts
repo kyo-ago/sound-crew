@@ -7,6 +7,10 @@ const ZakApi = z.object({
   token: z.string(),
 });
 
+const ZakToken = z.object({
+  zakToken: z.string(),
+});
+
 const fetchZakToken = (accessToken: string) => {
   return fetch(`https://api.zoom.us/v2/users/me/token?type=zak`, {
     headers: {
@@ -25,14 +29,23 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, token }: any) {
-      session.user.zakToken = token.zakToken;
-      return session;
+    async session({ session, token }) {
+      ZakToken.parse(token);
+      return {
+        ...session,
+        user: {
+            ...session.user,
+          zakToken: token.zakToken,
+        }
+      };
     },
     async jwt({ token, account }) {
       if (account && account?.access_token) {
-        const result = await fetchZakToken(account.access_token);
-        token.zakToken = result.token;
+        const {token: zakToken} = await fetchZakToken(account.access_token);
+        return {
+            ...token,
+            zakToken,
+        };
       }
       return token;
     },

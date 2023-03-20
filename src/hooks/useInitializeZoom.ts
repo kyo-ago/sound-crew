@@ -2,14 +2,21 @@ import useSWRMutation from "swr/mutation";
 import { useRecoilValue } from "recoil";
 import { useMount } from "./useMount";
 import { zoomClientState } from "../libs/zoomClient";
+import { z } from "zod";
+
+const ApiResponse = z.object({
+  signature: z.string(),
+});
 
 const signatureEndpoint = "/api";
-async function sendRequest<Response>(url: string, { arg }: any) {
+async function sendRequest(url: string, { arg }: any) {
   return fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(arg),
-  }).then((res) => res.json() as Response);
+  })
+    .then((res) => res.json())
+    .then((json) => ApiResponse.parse(json));
 }
 
 export const useInitializeZoom = ({
@@ -19,9 +26,7 @@ export const useInitializeZoom = ({
   meetingNumber: string;
   userRole: string;
 }) => {
-  const { trigger, data } = useSWRMutation<{
-    signature: string;
-  }>(signatureEndpoint, sendRequest);
+  const { trigger, data } = useSWRMutation(signatureEndpoint, sendRequest);
 
   const zoomClient = useRecoilValue(zoomClientState);
 

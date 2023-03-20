@@ -1,8 +1,19 @@
-import { useState } from "react";
-import { useRecoilValue } from "recoil";
-import { useJoinZoom } from "../hooks/useJoinZoom";
-import { ZoomJoinParams } from "../libs/zoomClient";
-import { soundContextState } from "../libs/soundContext";
+import {useState} from "react";
+import {useRecoilValue} from "recoil";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Container,
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
+  Stack,
+} from "@chakra-ui/react";
+import {useJoinZoom} from "../hooks/useJoinZoom";
+import {ZoomJoinParams} from "../libs/zoomClient";
+import {soundContextState} from "../libs/soundContext";
 
 export const Meeting = (zoomJoinParams: ZoomJoinParams) => {
   const soundContext = useRecoilValue(soundContextState);
@@ -13,26 +24,35 @@ export const Meeting = (zoomJoinParams: ZoomJoinParams) => {
     setVolumeState(Number(newVolume));
   };
   return (
-    <>
-      {soundContext.mapSounds((key, name) => (
-        <button
-          key={key}
-          onClick={() => {
-            soundContext.playSound(key);
-          }}
-        >
-          {name}
-        </button>
-      ))}
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value={volume}
-        onChange={(e) => {
-          setVolume(e.currentTarget.valueAsNumber);
-        }}
-      />
-    </>
+    <Container>
+      <Stack>
+        <ButtonGroup spacing="6">
+          {soundContext.mapSounds((key, name) => (
+            <Button
+              key={key}
+              onClick={() => {
+                soundContext.playSound(key);
+              }}
+              colorScheme="blue"
+            >
+              {name}
+            </Button>
+          ))}
+        </ButtonGroup>
+        <Box width={200}>
+          Volume
+          <Slider
+            aria-label="volume"
+            value={volume}
+            onChange={(value) => setVolume(value)}
+          >
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+          </Slider>
+        </Box>
+      </Stack>
+    </Container>
   );
 };

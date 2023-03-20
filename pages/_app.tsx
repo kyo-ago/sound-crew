@@ -3,6 +3,7 @@ import React from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
+import { ChakraProvider } from "@chakra-ui/react";
 
 export default function App({
   Component,
@@ -10,10 +11,12 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <Head>
-        <title>sound crew</title>
-      </Head>
-      <Component {...pageProps} />
+      <ChakraProvider>
+        <Head>
+          <title>sound crew</title>
+        </Head>
+        <Component {...pageProps} />
+      </ChakraProvider>
     </SessionProvider>
   );
 }

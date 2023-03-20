@@ -1,7 +1,7 @@
 import { zoomChatObserver } from "./zoomChatObserver";
 
 const clickAudioButton = (zoomRoot: Element) => {
-  const button = zoomRoot.querySelector('[title="Audio"]');
+  const button = zoomRoot.querySelector('[title="Audio"],[title="Unmute"]');
   if (!button) {
     return;
   }
