@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sound Crew Web Application
 
-## Getting Started
+This web application is built with Next.js and designed to add sound effects to Zoom meetings.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
+1. Add a bot to your Zoom meeting that can play sound effects.
+2. The bot will play sound effects when screen sharing starts or when specific messages are sent in the chat.
+
+## Usage
+
+1. Visit https://sound-crew.0-9.app/.
+2. Authenticate with Zoom.
+3. Enter the invitation link for the Zoom meeting.
+4. Click the "Join Meeting" button to add the bot to the meeting.
+
+## Setup
+
+For developers, here's how to set up the application in a local environment.
+
+### Prerequisites
+
+- Node.js
+
+### Setup Instructions
+
+1. Clone the repository and start the development server.
+
+```
+git clone https://github.com/kyo-ago/sound-crew.git
+cd sound-crew
+yarn install
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Access the application at http://localhost:3000 in your browser and verify that it is running correctly.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## License
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+This project is released under the MIT License.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Author
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Kyo Ago(@kyo-ago)
 
-## Learn More
+## Special Thanks
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [効果音ラボ \- フリー、商用無料、報告不用の効果音素材をダウンロード](https://soundeffect-lab.info/)
+- [w\-okada/zoom\-meeting\-plus](https://github.com/w-okada/zoom-meeting-plus)
