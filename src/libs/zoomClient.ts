@@ -1,4 +1,4 @@
-import ZoomMtgEmbedded from "@zoomus/websdk/embedded";
+import ZoomMtgEmbedded from "@zoom/meetingsdk/embedded";
 import { atom } from "recoil";
 import { z } from "zod";
 
@@ -49,7 +49,7 @@ export class ZoomClient {
     });
   }
   onChangeShareScreenStatus(
-    callback: (data: { userId: number; action: "Start" | "Stop" }) => void
+    callback: (data: { userId: number; action: "Start" | "Stop" }) => void,
   ) {
     this.client.on("peer-share-state-change", (data) => {
       callback(data as any);
