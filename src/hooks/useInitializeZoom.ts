@@ -9,7 +9,17 @@ const ApiResponse = z.object({
 });
 
 const signatureEndpoint = "/api";
-async function sendRequest(url: string, { arg }: any) {
+async function sendRequest(
+  url: string,
+  {
+    arg,
+  }: {
+    arg: {
+      meetingNumber: string;
+      role: string;
+    };
+  },
+) {
   return fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
