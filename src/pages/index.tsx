@@ -1,11 +1,11 @@
-import React, {Suspense, useState} from "react";
-import {RecoilRoot, useRecoilValue} from "recoil";
-import {signIn, useSession} from "next-auth/react";
-import {Form} from "./Form";
-import {JoinMeeting} from "./JoinMeeting";
-import {useMount} from "../hooks/useMount";
-import {soundContextState} from "../libs/soundContext";
-import {Loading} from "./components/Loading";
+import React, { Suspense, useState } from "react";
+import { useAtomValue } from "jotai";
+import { signIn, useSession } from "next-auth/react";
+import { Form } from "./Form";
+import { JoinMeeting } from "./JoinMeeting";
+import { useMount } from "../hooks/useMount";
+import { soundContextState } from "../libs/soundContext";
+import { Loading } from "./components/Loading";
 
 export type ZoomMtgParams = {
   userName: string;
@@ -17,7 +17,7 @@ export type ZoomMtgParams = {
 const Home = () => {
   const { status } = useSession();
   const [joinParams, setJoinParams] = useState<ZoomMtgParams | undefined>();
-  const soundContext = useRecoilValue(soundContextState);
+  const soundContext = useAtomValue(soundContextState);
 
   useMount(() => {
     navigator.mediaDevices.getUserMedia =
@@ -42,10 +42,8 @@ const Home = () => {
 
 export default function Index() {
   return (
-    <RecoilRoot>
-      <Suspense fallback={<Loading />}>
-        <Home />
-      </Suspense>
-    </RecoilRoot>
+    <Suspense fallback={<Loading />}>
+      <Home />
+    </Suspense>
   );
 }

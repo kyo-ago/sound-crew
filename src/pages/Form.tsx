@@ -124,7 +124,7 @@ export const Form = ({
       userName: localStorage.getItem("userName") || "sound crew",
       userRole: localStorage.getItem("userRole") || "0",
       meetingUrl: localStorage.getItem("meetingUrl") || "",
-    }
+    },
   );
 
   const onJoinClick = () => {

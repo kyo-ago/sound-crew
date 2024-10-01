@@ -3,7 +3,7 @@ const KJUR = require("jsrsasign");
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const iat = Math.round(new Date().getTime() / 1000) - 30;
   const exp = iat + 60 * 60 * 2;
@@ -26,7 +26,7 @@ export default async function handler(
     "HS256",
     sHeader,
     sPayload,
-    process.env.ZOOM_CLIENT_SECRET
+    process.env.ZOOM_CLIENT_SECRET,
   );
 
   res.json({

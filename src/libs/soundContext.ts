@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
 const soundSets = [
   {
@@ -24,7 +24,7 @@ export class SoundContext {
     private readonly mediaStreamAudioDestinationNode: MediaStreamAudioDestinationNode,
     private readonly mediaStream: MediaStream,
     private readonly gainNode: GainNode,
-    private readonly audioBuffers: { [key: string]: AudioBuffer }
+    private readonly audioBuffers: { [key: string]: AudioBuffer },
   ) {}
   static create() {
     const audioContext = new AudioContext();
@@ -41,8 +41,8 @@ export class SoundContext {
           mediaStreamAudioDestinationNode,
           mediaStream,
           gainNode,
-          audioBuffers
-        )
+          audioBuffers,
+        ),
     );
   }
   static async loadAllAudioBuffer(audioContext: AudioContext) {
@@ -52,16 +52,16 @@ export class SoundContext {
           .then((res) => res.blob())
           .then((res) => res.arrayBuffer())
           .then((res) => audioContext.decodeAudioData(res))
-          .then((res) => [sound.key, res] as const)
-      )
+          .then((res) => [sound.key, res] as const),
+      ),
     ).then((res) =>
       res.reduce<{ [key: string]: AudioBuffer }>(
         (prev, cur) => ({
           [cur[0]]: cur[1],
           ...prev,
         }),
-        {}
-      )
+        {},
+      ),
     );
   }
   async fakeUserMedia(constraints?: MediaStreamConstraints) {
@@ -106,7 +106,4 @@ export class SoundContext {
   }
 }
 
-export const soundContextState = atom({
-  key: "SoundContext",
-  default: SoundContext.create(),
-});
+export const soundContextState = atom(SoundContext.create());

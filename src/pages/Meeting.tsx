@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {useRecoilValue} from "recoil";
+import { useState } from "react";
+import { useAtomValue } from "jotai";
 import {
   Box,
   Button,
@@ -11,12 +11,12 @@ import {
   SliderTrack,
   Stack,
 } from "@chakra-ui/react";
-import {useJoinZoom} from "../hooks/useJoinZoom";
-import {ZoomJoinParams} from "../libs/zoomClient";
-import {soundContextState} from "../libs/soundContext";
+import { useJoinZoom } from "../hooks/useJoinZoom";
+import { ZoomJoinParams } from "../libs/zoomClient";
+import { soundContextState } from "../libs/soundContext";
 
 export const Meeting = (zoomJoinParams: ZoomJoinParams) => {
-  const soundContext = useRecoilValue(soundContextState);
+  const soundContext = useAtomValue(soundContextState);
   useJoinZoom(zoomJoinParams);
   const [volume, setVolumeState] = useState(100);
   const setVolume = (newVolume: string | number) => {

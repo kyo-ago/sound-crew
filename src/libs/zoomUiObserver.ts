@@ -23,7 +23,7 @@ const muteVideo = (zoomRoot: Element) => {
 };
 const openChatDialog = (
   zoomRoot: Element,
-  newMessage: (text: string) => void
+  newMessage: (text: string) => void,
 ) => {
   if (document.querySelector('[role="dialog"]')) {
     zoomChatObserver(newMessage);

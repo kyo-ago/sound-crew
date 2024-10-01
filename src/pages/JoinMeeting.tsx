@@ -1,7 +1,7 @@
 import { Meeting } from "./Meeting";
 import { ZoomMtgParams } from "./index";
 import { useInitializeZoom } from "../hooks/useInitializeZoom";
-import {AbsoluteCenter, CircularProgress} from "@chakra-ui/react";
+import { AbsoluteCenter, CircularProgress } from "@chakra-ui/react";
 import React from "react";
 
 export const JoinMeeting = ({
@@ -16,7 +16,11 @@ export const JoinMeeting = ({
   });
 
   if (!data) {
-    return <AbsoluteCenter><CircularProgress isIndeterminate /></AbsoluteCenter>;
+    return (
+      <AbsoluteCenter>
+        <CircularProgress isIndeterminate />
+      </AbsoluteCenter>
+    );
   }
 
   return (

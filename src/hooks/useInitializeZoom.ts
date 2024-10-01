@@ -1,5 +1,5 @@
 import useSWRMutation from "swr/mutation";
-import { useRecoilValue } from "recoil";
+import { useAtomValue } from "jotai";
 import { useMount } from "./useMount";
 import { zoomClientState } from "../libs/zoomClient";
 import { z } from "zod";
@@ -28,7 +28,7 @@ export const useInitializeZoom = ({
 }) => {
   const { trigger, data } = useSWRMutation(signatureEndpoint, sendRequest);
 
-  const zoomClient = useRecoilValue(zoomClientState);
+  const zoomClient = useAtomValue(zoomClientState);
 
   useMount(() => {
     trigger({

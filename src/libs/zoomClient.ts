@@ -1,5 +1,5 @@
 import ZoomMtgEmbedded from "@zoom/meetingsdk/embedded";
-import { atom } from "recoil";
+import { atom } from "jotai";
 import { z } from "zod";
 
 export const UserSession = z.object({
@@ -57,7 +57,4 @@ export class ZoomClient {
   }
 }
 
-export const zoomClientState = atom({
-  key: "ZoomClient",
-  default: new ZoomClient(),
-});
+export const zoomClientState = atom(new ZoomClient());
